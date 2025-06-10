@@ -1,14 +1,38 @@
 import React, { useState } from "react";
 
 const AddTask = ({ onAdd }) => {
-  const [task, setTask] = useState("");
-  const [priority, setPriority] = useState("");
+  const [formdata, setFormdata] = useState({
+    name: "",
+    dateTime: "",
+    type: "",
+    priority: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormdata((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handlePriority = (priority) => {
+    setFormdata((prev) => ({
+      ...prev,
+      priority,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (task.trim()) {
-      onAdd && onAdd(task);
-      setTask("");
+    if (formdata.name.trim()) {
+      onAdd && onAdd(formdata);
+      setFormdata({
+        name: "",
+        dateTime: "",
+        type: "",
+        priority: "",
+      });
     }
   };
 
@@ -20,10 +44,11 @@ const AddTask = ({ onAdd }) => {
       <div className="col-10 col-md-8 d-flex justify-content-center">
         <input
           type="text"
+          name="name"
           className="form-control form-control-lg"
           placeholder="Enter a new task"
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
+          value={formdata.name}
+          onChange={handleChange}
         />
       </div>
       <div
@@ -43,8 +68,11 @@ const AddTask = ({ onAdd }) => {
             <input
               type="datetime-local"
               id="task-datetime"
+              name="dateTime"
               className="form-control"
               style={{ maxWidth: "320px", margin: "0 auto" }}
+              value={formdata.dateTime}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -55,8 +83,11 @@ const AddTask = ({ onAdd }) => {
             </label>
             <select
               id="task-type"
+              name="type"
               className="form-select"
               style={{ maxWidth: "320px", margin: "0 auto" }}
+              value={formdata.type}
+              onChange={handleChange}
             >
               <option value="">Select type</option>
               <option value="Work">Work</option>
@@ -72,28 +103,34 @@ const AddTask = ({ onAdd }) => {
               <label className="form-label mb-2 d-block">Task Priority</label>
               <span
                 className={`badge bg-danger fs-6 me-2 ${
-                  priority === "High" ? "border border-3 border-primary" : ""
+                  formdata.priority === "High"
+                    ? "border border-3 border-primary"
+                    : ""
                 }`}
                 style={{ cursor: "pointer" }}
-                onClick={() => setPriority("High")}
+                onClick={() => handlePriority("High")}
               >
                 High
               </span>
               <span
                 className={`badge bg-warning text-dark fs-6 me-2 ${
-                  priority === "Medium" ? "border border-3 border-primary" : ""
+                  formdata.priority === "Medium"
+                    ? "border border-3 border-primary"
+                    : ""
                 }`}
                 style={{ cursor: "pointer" }}
-                onClick={() => setPriority("Medium")}
+                onClick={() => handlePriority("Medium")}
               >
                 Medium
               </span>
               <span
                 className={`badge bg-success fs-6 ${
-                  priority === "Low" ? "border border-3 border-primary" : ""
+                  formdata.priority === "Low"
+                    ? "border border-3 border-primary"
+                    : ""
                 }`}
                 style={{ cursor: "pointer" }}
-                onClick={() => setPriority("Low")}
+                onClick={() => handlePriority("Low")}
               >
                 Low
               </span>

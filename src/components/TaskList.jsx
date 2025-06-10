@@ -1,7 +1,7 @@
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-const TaskList = ({ tasks = [] }) => {
+const TaskList = ({ tasks = [], onDelete, onEdit }) => {
   return (
     <div className="row">
       <div className="col-10 offset-1">
@@ -29,9 +29,7 @@ const TaskList = ({ tasks = [] }) => {
                 {/* Name and Date */}
                 <div className="col-5 d-flex flex-column">
                   <span className="fw-bold fs-6">{task.name}</span>
-                  <span className="text-muted small">
-                    {task.date} {task.time}
-                  </span>
+                  <span className="text-muted small">{task.dateTime}</span>
                 </div>
                 {/* Type and Priority */}
                 <div className="col-4 d-flex flex-column">
@@ -52,8 +50,16 @@ const TaskList = ({ tasks = [] }) => {
                 </div>
                 {/* Edit and Delete Icons */}
                 <div className="col-2 d-flex justify-content-evenly align-items-center gap-1">
-                  <FaEdit size="30px" style={{ cursor: "pointer" }} />
-                  <FaTrash size="25px" style={{ cursor: "pointer" }} />
+                  <FaEdit
+                    onClick={() => onEdit(task.id)}
+                    size="30px"
+                    style={{ cursor: "pointer" }}
+                  />
+                  <FaTrash
+                    onClick={() => onDelete(task.id)}
+                    size="25px"
+                    style={{ cursor: "pointer" }}
+                  />
                 </div>
               </div>
             </li>

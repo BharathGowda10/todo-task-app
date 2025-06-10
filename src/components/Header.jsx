@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 
 const Header = () => {
-  const [darkMode, setDarkMode] = useState(localStorage.getItem("theme"));
+  const [darkMode, setDarkMode] = useState(
+    JSON.parse(localStorage.getItem("theme")) || false
+  );
 
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add("bg-dark", "text-white");
       document.body.classList.remove("bg-secondary", "text-dark");
-      localStorage.setItem("theme", "dark");
+      localStorage.setItem("theme", JSON.stringify(true));
     } else {
       document.body.classList.remove("bg-dark", "text-white");
       document.body.classList.add("bg-secondary", "text-dark");
-      localStorage.setItem("theme", "light");
+      localStorage.setItem("theme", JSON.stringify(false));
     }
   }, [darkMode]);
 
