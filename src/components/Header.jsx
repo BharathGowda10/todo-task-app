@@ -37,7 +37,7 @@ const Header = () => {
             padding: 0,
           }}
           onClick={() => setDarkMode((prev) => !prev)}
-          aria-label="Toggle dark mode"
+          aria-label={darkMode ? "dark mode" : "light mode"}
         >
           {darkMode ? <FaSun /> : <FaMoon />}
         </button>

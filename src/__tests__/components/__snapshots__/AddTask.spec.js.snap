@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTask Component match snap shot 1`] = `
+<DocumentFragment>
+  <form
+    class="row mb-3 py-4 justify-content-center align-items-center gap-2 gap-md-0"
+  >
+    <div
+      class="col-10 d-flex flex-column flex-md-row align-items-center justify-content-center"
+      style="gap: 10px;"
+    >
+      <div
+        class="w-100"
+      >
+        <input
+          autocomplete="off"
+          class="form-control form-control-lg"
+          id="task-name"
+          name="name"
+          placeholder="Enter a new task"
+          type="text"
+        />
+      </div>
+      <button
+        class="btn submit-button btn-warning btn-lg mt-2 mt-md-0 align-self-start"
+        id="add-task-button"
+        type="submit"
+      >
+        Add Task
+      </button>
+    </div>
+    <div
+      class="row mb-3"
+    >
+      <div
+        class="col-10 col-md-4 my-3 mb-md-0 mx-auto"
+      >
+        <div
+          class="border border-2 rounded p-3 text-center"
+        >
+          <label
+            class="form-label mb-2"
+            for="task-datetime"
+          >
+            Select Date & Time
+          </label>
+          <input
+            class="form-control"
+            id="task-datetime"
+            name="dateTime"
+            style="max-width: 320px; margin: 0px auto;"
+            type="datetime-local"
+          />
+        </div>
+      </div>
+      <div
+        class="col-10 col-md-4 my-3 mb-md-0 mx-auto"
+      >
+        <div
+          class="border border-2 rounded p-3 text-center"
+        >
+          <label
+            class="form-label mb-2"
+            for="task-type"
+          >
+            Task Type
+          </label>
+          <select
+            class="form-select"
+            id="task-type"
+            name="type"
+            style="max-width: 320px; margin: 0px auto;"
+          >
+            <option
+              value=""
+            >
+              Select type
+            </option>
+            <option
+              value="Work"
+            >
+              Work
+            </option>
+            <option
+              value="Shopping"
+            >
+              Shopping
+            </option>
+            <option
+              value="Chores"
+            >
+              Chores
+            </option>
+            <option
+              value="Others"
+            >
+              Others
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        class="col-10 col-md-4 my-3 mx-auto"
+      >
+        <div
+          class="border border-2 rounded p-3 text-center"
+        >
+          <div
+            class="mb-2"
+          >
+            <label
+              class="form-label mb-2 d-block"
+            >
+              Task Priority
+            </label>
+            <input
+              name="priority"
+              type="hidden"
+              value=""
+            />
+            <span
+              class="badge bg-danger fs-6 me-2 "
+              style="cursor: pointer;"
+            >
+              High
+            </span>
+            <span
+              class="badge bg-warning text-dark fs-6 me-2 "
+              style="cursor: pointer;"
+            >
+              Medium
+            </span>
+            <span
+              class="badge bg-success fs-6 "
+              style="cursor: pointer;"
+            >
+              Low
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</DocumentFragment>
+`;

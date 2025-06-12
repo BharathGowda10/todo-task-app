@@ -10,6 +10,7 @@ function App() {
   );
   const [showModal, setShowModal] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [fadingTasks, setFadingTasks] = useState([]);
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -38,12 +39,26 @@ function App() {
   const onClose = () => {
     setShowModal(false);
   };
+
+  const onCheckBoxClick = (id) => {
+    setFadingTasks((prev) => [...prev, id]);
+    setTimeout(() => {
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      setFadingTasks((prev) => prev.filter((taskId) => taskId !== id));
+    }, 1000);
+  };
   return (
     <div className="container-fluid px-0">
       <div className="app-container">
         <Header />
         <AddTask onAdd={onAdd} />
-        <TaskListPage tasks={tasks} onDelete={onDelete} onEdit={onEdit} />
+        <TaskListPage
+          tasks={tasks}
+          onDelete={onDelete}
+          onEdit={onEdit}
+          onCheckBoxClick={onCheckBoxClick}
+          fadingTasks={fadingTasks}
+        />
         <EditTask
           show={showModal}
           onClose={onClose}

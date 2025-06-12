@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import PropTypes from "prop-types";
 
 const EditTask = ({ show, onClose, onSave, task }) => {
-  const [formdata, setFormdata] = useState({
-    name: "",
-    dateTime: "",
-    type: "",
-    priority: "",
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      dateTime: "",
+      type: "",
+      priority: "",
+    },
   });
 
   useEffect(() => {
-    if (task) setFormdata(task);
-  }, [task]);
+    if (task) {
+      reset(task);
+    }
+  }, [task, reset]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormdata((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const selectedPriority = watch("priority");
+
+  const onSubmit = (data) => {
+    onSave && onSave(data);
   };
 
   const handlePriority = (priority) => {
-    setFormdata((prev) => ({
-      ...prev,
-      priority,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave && onSave(formdata);
+    setValue("priority", priority, { shouldValidate: true });
   };
 
   if (!show) return null;
@@ -41,7 +44,7 @@ const EditTask = ({ show, onClose, onSave, task }) => {
       style={{ background: "rgba(0,0,0,0.3)" }}
     >
       <div className="modal-dialog">
-        <form className="modal-content" onSubmit={handleSubmit}>
+        <form className="modal-content" onSubmit={handleSubmit(onSubmit)}>
           <div className="modal-header">
             <h5 className="modal-title">Edit Task</h5>
             <button
@@ -52,33 +55,51 @@ const EditTask = ({ show, onClose, onSave, task }) => {
           </div>
           <div className="modal-body">
             <div className="mb-3">
-              <label className="form-label">Task Name</label>
+              <label htmlFor="edit-task-name" className="form-label">
+                Task Name
+              </label>
               <input
                 type="text"
                 name="name"
+                id="edit-task-name"
                 className="form-control"
-                value={formdata.name}
-                onChange={handleChange}
-                required
+                {...register("name", { required: "Input Field Is Required" })}
+                autoComplete="off"
               />
+              {errors.name && (
+                <span className="text-danger mt-1 d-flex align-items-center">
+                  {errors.name.message}
+                </span>
+              )}
             </div>
             <div className="mb-3">
-              <label className="form-label">Date &amp; Time</label>
+              <label htmlFor="edit-task-datetime" className="form-label">
+                Date &amp; Time
+              </label>
               <input
                 type="datetime-local"
                 name="dateTime"
+                id="edit-task-datetime"
                 className="form-control"
-                value={formdata.dateTime}
-                onChange={handleChange}
+                {...register("dateTime", {
+                  required: "Date & Time Is Required",
+                })}
               />
+              {errors.dateTime && (
+                <span className="text-danger mt-1 d-flex align-items-center">
+                  {errors.dateTime.message}
+                </span>
+              )}
             </div>
             <div className="mb-3">
-              <label className="form-label">Task Type</label>
+              <label htmlFor="edit-task-type" className="form-label">
+                Task Type
+              </label>
               <select
                 name="type"
+                id="edit-task-type"
                 className="form-select"
-                value={formdata.type}
-                onChange={handleChange}
+                {...register("type", { required: "Select Any One Type" })}
               >
                 <option value="">Select type</option>
                 <option value="Work">Work</option>
@@ -86,12 +107,29 @@ const EditTask = ({ show, onClose, onSave, task }) => {
                 <option value="Chores">Chores</option>
                 <option value="Others">Others</option>
               </select>
+              {errors.type && (
+                <span className="text-danger mt-1 d-flex align-items-center">
+                  {errors.type.message}
+                </span>
+              )}
             </div>
             <div className="mb-3">
-              <label className="form-label d-block">Task Priority</label>
+              <label
+                htmlFor="edit-task-priority"
+                className="form-label d-block"
+              >
+                Task Priority
+              </label>
+              <input
+                type="hidden"
+                id="edit-task-priority"
+                {...register("priority", {
+                  required: "Select Any One Priority",
+                })}
+              />
               <span
                 className={`badge bg-danger fs-6 me-2 ${
-                  formdata.priority === "High"
+                  selectedPriority === "High"
                     ? "border border-3 border-primary"
                     : ""
                 }`}
@@ -102,7 +140,7 @@ const EditTask = ({ show, onClose, onSave, task }) => {
               </span>
               <span
                 className={`badge bg-warning text-dark fs-6 me-2 ${
-                  formdata.priority === "Medium"
+                  selectedPriority === "Medium"
                     ? "border border-3 border-primary"
                     : ""
                 }`}
@@ -113,7 +151,7 @@ const EditTask = ({ show, onClose, onSave, task }) => {
               </span>
               <span
                 className={`badge bg-success fs-6 ${
-                  formdata.priority === "Low"
+                  selectedPriority === "Low"
                     ? "border border-3 border-primary"
                     : ""
                 }`}
@@ -122,6 +160,11 @@ const EditTask = ({ show, onClose, onSave, task }) => {
               >
                 Low
               </span>
+              {errors.priority && (
+                <span className="text-danger mt-1 d-flex align-items-center justify-content-center">
+                  {errors.priority.message}
+                </span>
+              )}
             </div>
           </div>
           <div className="modal-footer">
@@ -140,6 +183,18 @@ const EditTask = ({ show, onClose, onSave, task }) => {
       </div>
     </div>
   );
+};
+
+EditTask.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  task: PropTypes.shape({
+    name: PropTypes.string,
+    dateTime: PropTypes.string,
+    type: PropTypes.string,
+    priority: PropTypes.string,
+  }).isRequired,
 };
 
 export default EditTask;

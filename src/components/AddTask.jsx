@@ -1,64 +1,75 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useForm } from "react-hook-form";
+import { MdWarning } from "react-icons/md";
 
 const AddTask = ({ onAdd }) => {
-  const [formdata, setFormdata] = useState({
-    name: "",
-    dateTime: "",
-    type: "",
-    priority: "",
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      dateTime: "",
+      type: "",
+      priority: "",
+    },
+    mode: "onSubmit",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormdata((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const selectedPriority = watch("priority");
 
-  const handlePriority = (priority) => {
-    setFormdata((prev) => ({
-      ...prev,
-      priority,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formdata.name.trim()) {
-      onAdd && onAdd(formdata);
-      setFormdata({
-        name: "",
-        dateTime: "",
-        type: "",
-        priority: "",
-      });
+  const onSubmit = (data) => {
+    if (data.name.trim()) {
+      onAdd(data);
+      reset();
     }
+  };
+
+  const handlePriorityClick = (priority) => {
+    setValue("priority", priority, { shouldValidate: true });
   };
 
   return (
     <form
       className="row mb-3 py-4 justify-content-center align-items-center gap-2 gap-md-0"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="col-10 col-md-8 d-flex justify-content-center">
-        <input
-          type="text"
-          name="name"
-          className="form-control form-control-lg"
-          placeholder="Enter a new task"
-          value={formdata.name}
-          onChange={handleChange}
-        />
-      </div>
       <div
-        className="col-10 col-md-2 d-flex justify-content-center mt-3 mt-md-0"
+        className="col-10 d-flex flex-column flex-md-row align-items-center justify-content-center"
         style={{ gap: "10px" }}
       >
-        <button type="submit" className="btn btn-warning btn-lg w-100 h-100">
+        <div className="w-100">
+          <input
+            type="text"
+            name="name"
+            id="task-name"
+            {...register("name", {
+              required: "Input Field Is Required",
+            })}
+            className="form-control form-control-lg"
+            placeholder="Enter a new task"
+            autoComplete="off"
+          />
+          {errors?.name?.message && (
+            <span className="text-danger ms-2 mt-1 fs-6 d-flex align-items-center">
+              <MdWarning className="me-1 fs-5" />
+              {errors.name.message}
+            </span>
+          )}
+        </div>
+        <button
+          type="submit"
+          id="add-task-button"
+          className="btn submit-button btn-warning btn-lg mt-2 mt-md-0 align-self-start"
+        >
           Add Task
         </button>
       </div>
+
       <div className="row mb-3">
         <div className="col-10 col-md-4 my-3 mb-md-0 mx-auto">
           <div className="border border-2 rounded p-3 text-center">
@@ -69,11 +80,21 @@ const AddTask = ({ onAdd }) => {
               type="datetime-local"
               id="task-datetime"
               name="dateTime"
+              {...register("dateTime", {
+                required: "Date & Time Is Required",
+              })}
               className="form-control"
               style={{ maxWidth: "320px", margin: "0 auto" }}
-              value={formdata.dateTime}
-              onChange={handleChange}
             />
+            {errors?.dateTime?.message && (
+              <span
+                style={{ maxWidth: "320px" }}
+                className="text-danger mx-auto mt-1 fs-6 d-flex align-items-center"
+              >
+                <MdWarning className="me-1 fs-5" />
+                {errors.dateTime.message}
+              </span>
+            )}
           </div>
         </div>
         <div className="col-10 col-md-4 my-3 mb-md-0 mx-auto">
@@ -84,10 +105,11 @@ const AddTask = ({ onAdd }) => {
             <select
               id="task-type"
               name="type"
+              {...register("type", {
+                required: "Select Any One Type",
+              })}
               className="form-select"
               style={{ maxWidth: "320px", margin: "0 auto" }}
-              value={formdata.type}
-              onChange={handleChange}
             >
               <option value="">Select type</option>
               <option value="Work">Work</option>
@@ -95,51 +117,79 @@ const AddTask = ({ onAdd }) => {
               <option value="Chores">Chores</option>
               <option value="Others">Others</option>
             </select>
+            {errors?.type?.message && (
+              <span
+                style={{ maxWidth: "320px" }}
+                className="text-danger mx-auto mt-1 fs-6 d-flex align-items-center"
+              >
+                <MdWarning className="me-1 fs-5" />
+                {errors.type.message}
+              </span>
+            )}
           </div>
         </div>
         <div className="col-10 col-md-4 my-3 mx-auto">
           <div className="border border-2 rounded p-3 text-center">
             <div className="mb-2">
               <label className="form-label mb-2 d-block">Task Priority</label>
+              <input
+                type="hidden"
+                {...register("priority", {
+                  required: "Select Any One Priority",
+                })}
+              />
               <span
                 className={`badge bg-danger fs-6 me-2 ${
-                  formdata.priority === "High"
-                    ? "border border-3 border-primary"
+                  selectedPriority === "High"
+                    ? "border border-2 border-primary"
                     : ""
                 }`}
-                style={{ cursor: "pointer" }}
-                onClick={() => handlePriority("High")}
+                style={{ cursor: "pointer", border: "none" }}
+                onClick={() => handlePriorityClick("High")}
               >
                 High
               </span>
               <span
                 className={`badge bg-warning text-dark fs-6 me-2 ${
-                  formdata.priority === "Medium"
-                    ? "border border-3 border-primary"
+                  selectedPriority === "Medium"
+                    ? "border border-2 border-primary"
                     : ""
                 }`}
-                style={{ cursor: "pointer" }}
-                onClick={() => handlePriority("Medium")}
+                style={{ cursor: "pointer", border: "none" }}
+                onClick={() => handlePriorityClick("Medium")}
               >
                 Medium
               </span>
               <span
                 className={`badge bg-success fs-6 ${
-                  formdata.priority === "Low"
-                    ? "border border-3 border-primary"
+                  selectedPriority === "Low"
+                    ? "border border-2 border-primary"
                     : ""
                 }`}
-                style={{ cursor: "pointer" }}
-                onClick={() => handlePriority("Low")}
+                style={{ cursor: "pointer", border: "none" }}
+                onClick={() => handlePriorityClick("Low")}
               >
                 Low
               </span>
+              {errors?.priority?.message && (
+                <span
+                  className="text-danger mt-1 fs-6 d-flex align-items-center justify-content-center"
+                  style={{ width: "100%" }}
+                >
+                  <MdWarning className="me-1 fs-5" />
+                  {errors.priority.message}
+                </span>
+              )}
             </div>
           </div>
         </div>
       </div>
     </form>
   );
+};
+
+AddTask.propTypes = {
+  onAdd: PropTypes.func.isRequired,
 };
 
 export default AddTask;
