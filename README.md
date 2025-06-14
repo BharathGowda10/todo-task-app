@@ -63,7 +63,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This section has moved here: https://todo-task-app-bharath-s-projects-73543613.vercel.app/ -- check this link for live demo
 
 ### `npm run build` fails to minify
 
