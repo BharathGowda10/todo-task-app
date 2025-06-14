@@ -6,9 +6,6 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    },
-    "babelOptions": {
-      "plugins": ["@babel/plugin-syntax-jsx"]
     }
   },
   "env": {

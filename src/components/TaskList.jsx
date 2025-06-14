@@ -15,7 +15,7 @@ const TaskList = ({
           {tasks.map((task) => (
             <li
               key={task.id}
-              className={`list-group-item border border-secondary rounded mb-2 ${
+              className={`list-group-item border border-secondary rounded mb-2 shadow-sm ${
                 fadingTasks && fadingTasks.includes(task.id) ? 'fade' : ''
               }`}
             >
