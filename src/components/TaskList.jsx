@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import PropTypes from 'prop-types';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 const TaskList = ({
   tasks = [],
@@ -16,7 +16,7 @@ const TaskList = ({
             <li
               key={task.id}
               className={`list-group-item border border-secondary rounded mb-2 ${
-                fadingTasks && fadingTasks.includes(task.id) ? "fade" : ""
+                fadingTasks && fadingTasks.includes(task.id) ? 'fade' : ''
               }`}
             >
               <div className="row align-items-center">
@@ -31,9 +31,9 @@ const TaskList = ({
                     checked={fadingTasks.includes(task.id)}
                     onClick={() => onCheckBoxClick(task.id)}
                     style={{
-                      cursor: "pointer",
-                      width: "1.5rem",
-                      height: "1.5rem",
+                      cursor: 'pointer',
+                      width: '1.5rem',
+                      height: '1.5rem',
                     }}
                   />
                 </div>
@@ -42,8 +42,8 @@ const TaskList = ({
                   <span
                     className={`fw-bold fs-6 ${
                       fadingTasks && fadingTasks.includes(task.id)
-                        ? "strike-through"
-                        : ""
+                        ? 'strike-through'
+                        : ''
                     }`}
                   >
                     {task.name}
@@ -57,11 +57,11 @@ const TaskList = ({
                   </span>
                   <span
                     className={`badge fontsize ${
-                      task.priority === "High"
-                        ? "bg-danger"
-                        : task.priority === "Medium"
-                        ? "bg-warning text-dark"
-                        : "bg-success"
+                      task.priority === 'High'
+                        ? 'bg-danger'
+                        : task.priority === 'Medium'
+                          ? 'bg-warning text-dark'
+                          : 'bg-success'
                     }`}
                   >
                     {task.priority}
@@ -75,7 +75,7 @@ const TaskList = ({
                     role="button"
                     data-testid="edit-button"
                     aria-label="edit-button"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                   />
                   <FaTrash
                     onClick={() => onDelete(task.id)}
@@ -83,7 +83,7 @@ const TaskList = ({
                     role="button"
                     data-testid="delete-button"
                     aria-label="delete-button"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                   />
                 </div>
               </div>

@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import { useForm } from "react-hook-form";
-import { MdWarning } from "react-icons/md";
+import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
+import { MdWarning } from 'react-icons/md';
 
 const AddTask = ({ onAdd }) => {
   const {
@@ -12,15 +12,15 @@ const AddTask = ({ onAdd }) => {
     watch,
   } = useForm({
     defaultValues: {
-      name: "",
-      dateTime: "",
-      type: "",
-      priority: "",
+      name: '',
+      dateTime: '',
+      type: '',
+      priority: '',
     },
-    mode: "onSubmit",
+    mode: 'onSubmit',
   });
 
-  const selectedPriority = watch("priority");
+  const selectedPriority = watch('priority');
 
   const onSubmit = (data) => {
     if (data.name.trim()) {
@@ -30,7 +30,7 @@ const AddTask = ({ onAdd }) => {
   };
 
   const handlePriorityClick = (priority) => {
-    setValue("priority", priority, { shouldValidate: true });
+    setValue('priority', priority, { shouldValidate: true });
   };
 
   return (
@@ -40,15 +40,15 @@ const AddTask = ({ onAdd }) => {
     >
       <div
         className="col-10 d-flex flex-column flex-md-row align-items-center justify-content-center"
-        style={{ gap: "10px" }}
+        style={{ gap: '10px' }}
       >
         <div className="w-100">
           <input
             type="text"
             name="name"
             id="task-name"
-            {...register("name", {
-              required: "Input Field Is Required",
+            {...register('name', {
+              required: 'Input Field Is Required',
             })}
             className="form-control form-control-lg"
             placeholder="Enter a new task"
@@ -80,15 +80,15 @@ const AddTask = ({ onAdd }) => {
               type="datetime-local"
               id="task-datetime"
               name="dateTime"
-              {...register("dateTime", {
-                required: "Date & Time Is Required",
+              {...register('dateTime', {
+                required: 'Date & Time Is Required',
               })}
               className="form-control"
-              style={{ maxWidth: "320px", margin: "0 auto" }}
+              style={{ maxWidth: '320px', margin: '0 auto' }}
             />
             {errors?.dateTime?.message && (
               <span
-                style={{ maxWidth: "320px" }}
+                style={{ maxWidth: '320px' }}
                 className="text-danger mx-auto mt-1 fs-6 d-flex align-items-center"
               >
                 <MdWarning className="me-1 fs-5" />
@@ -105,11 +105,11 @@ const AddTask = ({ onAdd }) => {
             <select
               id="task-type"
               name="type"
-              {...register("type", {
-                required: "Select Any One Type",
+              {...register('type', {
+                required: 'Select Any One Type',
               })}
               className="form-select"
-              style={{ maxWidth: "320px", margin: "0 auto" }}
+              style={{ maxWidth: '320px', margin: '0 auto' }}
             >
               <option value="">Select type</option>
               <option value="Work">Work</option>
@@ -119,7 +119,7 @@ const AddTask = ({ onAdd }) => {
             </select>
             {errors?.type?.message && (
               <span
-                style={{ maxWidth: "320px" }}
+                style={{ maxWidth: '320px' }}
                 className="text-danger mx-auto mt-1 fs-6 d-flex align-items-center"
               >
                 <MdWarning className="me-1 fs-5" />
@@ -134,47 +134,47 @@ const AddTask = ({ onAdd }) => {
               <label className="form-label mb-2 d-block">Task Priority</label>
               <input
                 type="hidden"
-                {...register("priority", {
-                  required: "Select Any One Priority",
+                {...register('priority', {
+                  required: 'Select Any One Priority',
                 })}
               />
               <span
                 className={`badge bg-danger fs-6 me-2 ${
-                  selectedPriority === "High"
-                    ? "border border-2 border-primary"
-                    : ""
+                  selectedPriority === 'High'
+                    ? 'border border-2 border-primary'
+                    : ''
                 }`}
-                style={{ cursor: "pointer", border: "none" }}
-                onClick={() => handlePriorityClick("High")}
+                style={{ cursor: 'pointer', border: 'none' }}
+                onClick={() => handlePriorityClick('High')}
               >
                 High
               </span>
               <span
                 className={`badge bg-warning text-dark fs-6 me-2 ${
-                  selectedPriority === "Medium"
-                    ? "border border-2 border-primary"
-                    : ""
+                  selectedPriority === 'Medium'
+                    ? 'border border-2 border-primary'
+                    : ''
                 }`}
-                style={{ cursor: "pointer", border: "none" }}
-                onClick={() => handlePriorityClick("Medium")}
+                style={{ cursor: 'pointer', border: 'none' }}
+                onClick={() => handlePriorityClick('Medium')}
               >
                 Medium
               </span>
               <span
                 className={`badge bg-success fs-6 ${
-                  selectedPriority === "Low"
-                    ? "border border-2 border-primary"
-                    : ""
+                  selectedPriority === 'Low'
+                    ? 'border border-2 border-primary'
+                    : ''
                 }`}
-                style={{ cursor: "pointer", border: "none" }}
-                onClick={() => handlePriorityClick("Low")}
+                style={{ cursor: 'pointer', border: 'none' }}
+                onClick={() => handlePriorityClick('Low')}
               >
                 Low
               </span>
               {errors?.priority?.message && (
                 <span
                   className="text-danger mt-1 fs-6 d-flex align-items-center justify-content-center"
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                 >
                   <MdWarning className="me-1 fs-5" />
                   {errors.priority.message}

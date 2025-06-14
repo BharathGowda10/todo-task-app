@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import PropTypes from "prop-types";
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 const EditTask = ({ show, onClose, onSave, task }) => {
   const {
@@ -12,10 +12,10 @@ const EditTask = ({ show, onClose, onSave, task }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: "",
-      dateTime: "",
-      type: "",
-      priority: "",
+      name: '',
+      dateTime: '',
+      type: '',
+      priority: '',
     },
   });
 
@@ -25,14 +25,14 @@ const EditTask = ({ show, onClose, onSave, task }) => {
     }
   }, [task, reset]);
 
-  const selectedPriority = watch("priority");
+  const selectedPriority = watch('priority');
 
   const onSubmit = (data) => {
     onSave && onSave(data);
   };
 
   const handlePriority = (priority) => {
-    setValue("priority", priority, { shouldValidate: true });
+    setValue('priority', priority, { shouldValidate: true });
   };
 
   if (!show) return null;
@@ -41,7 +41,7 @@ const EditTask = ({ show, onClose, onSave, task }) => {
     <div
       className="modal show d-block"
       tabIndex="-1"
-      style={{ background: "rgba(0,0,0,0.3)" }}
+      style={{ background: 'rgba(0,0,0,0.3)' }}
     >
       <div className="modal-dialog">
         <form className="modal-content" onSubmit={handleSubmit(onSubmit)}>
@@ -63,7 +63,7 @@ const EditTask = ({ show, onClose, onSave, task }) => {
                 name="name"
                 id="edit-task-name"
                 className="form-control"
-                {...register("name", { required: "Input Field Is Required" })}
+                {...register('name', { required: 'Input Field Is Required' })}
                 autoComplete="off"
               />
               {errors.name && (
@@ -81,8 +81,8 @@ const EditTask = ({ show, onClose, onSave, task }) => {
                 name="dateTime"
                 id="edit-task-datetime"
                 className="form-control"
-                {...register("dateTime", {
-                  required: "Date & Time Is Required",
+                {...register('dateTime', {
+                  required: 'Date & Time Is Required',
                 })}
               />
               {errors.dateTime && (
@@ -99,7 +99,7 @@ const EditTask = ({ show, onClose, onSave, task }) => {
                 name="type"
                 id="edit-task-type"
                 className="form-select"
-                {...register("type", { required: "Select Any One Type" })}
+                {...register('type', { required: 'Select Any One Type' })}
               >
                 <option value="">Select type</option>
                 <option value="Work">Work</option>
@@ -123,40 +123,40 @@ const EditTask = ({ show, onClose, onSave, task }) => {
               <input
                 type="hidden"
                 id="edit-task-priority"
-                {...register("priority", {
-                  required: "Select Any One Priority",
+                {...register('priority', {
+                  required: 'Select Any One Priority',
                 })}
               />
               <span
                 className={`badge bg-danger fs-6 me-2 ${
-                  selectedPriority === "High"
-                    ? "border border-3 border-primary"
-                    : ""
+                  selectedPriority === 'High'
+                    ? 'border border-3 border-primary'
+                    : ''
                 }`}
-                style={{ cursor: "pointer" }}
-                onClick={() => handlePriority("High")}
+                style={{ cursor: 'pointer' }}
+                onClick={() => handlePriority('High')}
               >
                 High
               </span>
               <span
                 className={`badge bg-warning text-dark fs-6 me-2 ${
-                  selectedPriority === "Medium"
-                    ? "border border-3 border-primary"
-                    : ""
+                  selectedPriority === 'Medium'
+                    ? 'border border-3 border-primary'
+                    : ''
                 }`}
-                style={{ cursor: "pointer" }}
-                onClick={() => handlePriority("Medium")}
+                style={{ cursor: 'pointer' }}
+                onClick={() => handlePriority('Medium')}
               >
                 Medium
               </span>
               <span
                 className={`badge bg-success fs-6 ${
-                  selectedPriority === "Low"
-                    ? "border border-3 border-primary"
-                    : ""
+                  selectedPriority === 'Low'
+                    ? 'border border-3 border-primary'
+                    : ''
                 }`}
-                style={{ cursor: "pointer" }}
-                onClick={() => handlePriority("Low")}
+                style={{ cursor: 'pointer' }}
+                onClick={() => handlePriority('Low')}
               >
                 Low
               </span>

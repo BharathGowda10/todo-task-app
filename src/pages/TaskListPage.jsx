@@ -1,5 +1,5 @@
-import TaskList from "../components/TaskList";
-import PropTypes from "prop-types";
+import TaskList from '../components/TaskList';
+import PropTypes from 'prop-types';
 
 const TaskListPage = ({
   tasks,

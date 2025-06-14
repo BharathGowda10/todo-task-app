@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import AddTask from "./components/AddTask";
-import Header from "./components/Header";
-import TaskListPage from "./pages/TaskListPage";
-import EditTask from "./components/EditTask";
+import { useState, useEffect } from 'react';
+import AddTask from './components/AddTask';
+import Header from './components/Header';
+import TaskListPage from './pages/TaskListPage';
+import EditTask from './components/EditTask';
 
 function App() {
   const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || []
+    JSON.parse(localStorage.getItem('tasks')) || []
   );
   const [showModal, setShowModal] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
   const [fadingTasks, setFadingTasks] = useState([]);
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
   const onAdd = (task) => {
     const newTask = {
